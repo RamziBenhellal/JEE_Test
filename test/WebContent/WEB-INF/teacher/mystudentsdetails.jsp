@@ -122,7 +122,7 @@
 								placeholder="Exam ">
 						</div>
 						<div class="form-group">
-							<input type="submit" class="form-control" value="Save">
+							<input type="submit" class="form-control" value="Edit">
 						</div>
 					</form>
 					</c:forEach>

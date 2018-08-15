@@ -70,7 +70,12 @@ public class MyStudentsDetails extends HttpServlet {
 			markDao.add(mark);
 			response.sendRedirect("/test/teacher/mystudents");
 
-		} catch (BeanException e) {
+		}
+		catch(NullPointerException e) {
+			request.setAttribute("error", e.getMessage());
+			this.doGet(request, response);
+		}
+		catch (BeanException e) {
 			request.setAttribute("error", e.getMessage());
 			this.doGet(request, response);
 		}

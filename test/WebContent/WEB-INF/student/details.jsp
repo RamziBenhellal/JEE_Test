@@ -58,36 +58,50 @@
 						</ul>
 					</div>
 				</div>
-				<h2 class="col-md-offset-4">Transcript of Records </h2>
+				<h2 class="col-md-offset-4">Transcript of Records</h2>
+				
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Module</th>
-							<th>Attendance</th>
-							<th>Test 1</th>
-							<th>Test 2</th>
-							<th>Exam</th>
-							<th>Total</th>
+							<th>Module </th>
+							<th>Attendance [/20]</th>
+							<th>Test 1 [/20]</th>
+							<th>Test 2 [/20]</th>
+							<th>Exam [/20]</th>
+							<th>Total [/20]</th>
 
 						</tr>
 					</thead>
 					<tbody>
+					<c:set var="average" value="${ 0 }"></c:set>
+					<c:set var="totalCoef" value="${ 0 }"></c:set>
 						<c:forEach items="${modules }" var="module">
 							<tr>
-							    <th scope="row">${module.module }</th>
-							    <c:forEach items="${marks }" var="mark">
-						         <c:if test="${module.moduleCode == mark.module.toString() }">
-								<td>${mark.attendance }</td>
-								<td>${mark.test_1  }</td>
-								<td>${mark.test_2  }</td>
-								<td>${mark.exam  }</td>
-								<td>${mark.total  }</td>
-								</c:if>
+								<th scope="row">${module.module }</th>
+								<c:forEach items="${marks }" var="mark">
+									<c:if test="${module.moduleCode == mark.module.toString() }">
+										<td>${mark.attendance }</td>
+										<td>${mark.test_1  }</td>
+										<td>${mark.test_2  }</td>
+										<td>${mark.exam  }</td>
+										<td>${mark.total  }</td>
+								<c:set var="average" value="${average + mark.total * module.coefficient  }"></c:set>		
+									</c:if>
 								</c:forEach>
 							</tr>
+							<c:set var="totalCoef" value="${totalCoef +  module.coefficient  }"></c:set>
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:choose>
+				<c:when test="${ average / totalCoef >= 10  }">
+				<div class="col-md-offset-10 alert alert-success" role="alert">Average ${ average / totalCoef }</div>
+				</c:when>
+				<c:when test="${ average / totalCoef < 10  }">
+				<div class="col-md-offset-10 alert alert-danger" role="alert">${ average / totalCoef }</div>
+				</c:when>
+				</c:choose>
+				
 			</c:when>
 		</c:choose>
 

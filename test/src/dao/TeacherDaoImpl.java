@@ -222,9 +222,47 @@ public class TeacherDaoImpl implements Dao<Teacher> {
 	}
 
 	@Override
-	public List<Teacher> getwhere(String attribute, String value) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Teacher> getwhere(String attribute, String value) throws DaoException {
+		List<Teacher> teachers = new ArrayList<Teacher>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result = null;
+
+		try {
+			connection = daoFactory.getConnection();
+			statement = (Statement) connection.createStatement();
+			result = statement.executeQuery("SELECT codeteacher,firstname,lastname,modulecode,classcode FROM teachers WHERE "+attribute+" = '"+value+"' ; ");
+
+			while (result.next()) {
+				String codeTeacher = result.getString("codeteacher");
+				String firstname = result.getString("firstname");
+				String lastname = result.getString("lastname");
+				String moduleCode = result.getString("modulecode");
+				String classCode = result.getString("classcode");
+
+				Teacher teacher = new Teacher(codeTeacher,firstname, lastname,daoFactory.getModuleDao().find(moduleCode),daoFactory.getClassDao().find(classCode));
+				teachers.add(teacher);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("The connection to the database is broken");
+		} catch (BeanException e) {
+			throw new DaoException("Invalid Data");
+		}
+
+		finally {
+			try {
+				if (result != null)
+					result.close();
+				if (statement != null)
+					statement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				throw new DaoException("The connection to the database is broken");
+			}
+		}
+
+		return teachers;
 	}
 
 	@Override

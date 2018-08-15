@@ -41,11 +41,10 @@
 
 						<ul class="list-inline">
 							<li class="list-inline-item"><a class="btn btn-primary"
-								href="/test/class/edit?id=${ c.classCode }"
-								role="button"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a></li>
+								href="/test/class/edit?id=${ c.classCode }" role="button"><span
+									class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a></li>
 							<li class="list-inline-item">
-								<form
-									action="/test/class/details?id=${ c.classCode }"
+								<form action="/test/class/details?id=${ c.classCode }"
 									method="post">
 									<div class="form-group">
 										<input class="btn btn-danger" type="submit" value="Delete" />
@@ -54,6 +53,49 @@
 							</li>
 						</ul>
 					</div>
+					<c:if test="${!empty teachers }">
+						<div class="col-md-6 col-md-offset-1">
+							<h3 class="col-md-offset-1">Teachers :</h3>
+							<ul class="list-group">
+								<c:forEach items="${ teachers }" var="teacher">
+									<li class="list-group-item">${teacher.firstname}&nbsp;${ teacher.lastname}
+										: ${ teacher.module.module}</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</c:if>
+					<c:if test="${!empty students }">
+						<div class="col-md-10 col-md-offset-1">
+							<h3 class="col-md-offset-1">Students :</h3>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Serial Number</th>
+										<th>Birth Date</th>
+										<th>Speciality</th>
+										<th>Class</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${students }" var="student">
+										<tr>
+											<td>${student.firstname }</td>
+											<td>${student.lastname }</td>
+											<td>${student.serialNumber }</td>
+											<td>${student.birthDate }</td>
+											<td>${student.specialty }</td>
+											<td>${student.sClass.toString() }</td>
+											<td><a
+												href="/test/student/details?id=${student.serialNumber }">Details</a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</c:if>
 				</div>
 			</c:when>
 		</c:choose>
