@@ -17,6 +17,10 @@ public  Teacher check(HttpServletRequest request,User user, Module module,beans.
 		Module tModule  = module;
 		beans.Class tClass = m_class;
 		
+		if(!module.getSpecialty().equals(m_class.getSpecialty())) {
+			throw new BeanException("The module speciality and class speciality are not equivalent");
+		}
+		
 		user.setType("teacher");
 		
 		return new Teacher(codeTeacher, firstname, lastname, tModule, tClass);	

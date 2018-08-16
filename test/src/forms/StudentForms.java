@@ -17,6 +17,9 @@ public class StudentForms {
 		LocalDate birthDate = toDate(request.getParameter("birthdate"));
 		String specialty = request.getParameter("specialty");
 		beans.Class sClass = m_class;
+		if(!sClass.getSpecialty().equals(specialty)) {
+			throw new BeanException("The Student Musst be in Class of his Speciality");
+		}
 		
 		return new Student(firstname, lastname, serialNumber,birthDate,specialty,sClass);	
 	}

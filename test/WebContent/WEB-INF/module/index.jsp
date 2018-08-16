@@ -15,7 +15,7 @@
 	rel="stylesheet">
 	
 
-<title>Student Table</title>
+<title>Modules Table</title>
 </head>
 <body>
 	<div class="container">
@@ -28,7 +28,7 @@
 			<c:if test="${!empty success }">
 				<div class="alert alert-success" role="alert">${ sessionScope.success }<span class="glyphicon glyphicon-ok"></span></div>
 			</c:if>
-				<h2>Students Table</h2>
+				<h2>Modules Table</h2>
 				<a class="btn btn-primary float-right" href="/test/module/create"
 					role="button"><span class="glyphicon glyphicon-plus"></span> &nbsp;Add New</a>
 				<table class="table">

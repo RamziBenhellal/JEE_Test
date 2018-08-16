@@ -26,7 +26,7 @@
 			<c:when test="${ empty error }">
 
 				<div class="row">
-					<div class="col-md-6 col-md-offset-1">
+					<div class="col-md-7 col-md-offset-1">
 						<h2 class="col-md-offset-3">Class Informations</h2>
 						<dl class="row">
 							<dt class="col-sm-3">Class Code :</dt>
